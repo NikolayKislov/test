@@ -1,0 +1,44 @@
+@use '../helpers/helpers';
+@use '../helpers/media';
+.H1 {
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 35px;
+  text-align: center;
+  color: var(--c-grey40);
+  margin: 20px 0;
+
+  @include media.sm-up {
+    margin-left: 0;
+    margin-top: 32px;
+  }
+}
+.h2  {
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  color: var(--c-grey100);
+  max-width: 320px;
+  margin: 30px auto;
+
+  @include media.md-up {
+    font-size: 32px;
+    max-width: 500px;
+  }
+
+  &::before,
+  &::after {
+    display: inline-block;
+    content: "";
+    border-top: .2rem solid var(--c-secondary-dark);
+    width: 40px;
+    margin: 0 16px;
+    transform: translateY(-6px);
+
+    @include media.md-up {
+      transform: translateY(-12px);
+    }
+  }
+}

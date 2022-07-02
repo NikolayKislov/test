@@ -1,0 +1,33 @@
+@use '../helpers/media';
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  max-width: 1400px;
+
+  &--wide {
+    max-width: initial;
+  }
+}
+
+.wrapper {
+  box-sizing: border-box;
+  min-width: 980px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section {
+  padding: 25px 0;
+
+  @include media.md-up {
+    padding: 40px 0;
+  }
+}

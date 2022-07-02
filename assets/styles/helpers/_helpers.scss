@@ -1,0 +1,92 @@
+@use 'sass:math';
+@use 'vars';
+
+@function rem($pixels, $context: vars.$main-font-size) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1rem;
+  }
+
+  @return math.div($pixels, $context) * 1rem;
+}
+
+@function hexToRGB($hex) {
+  @return red($hex), green($hex), blue($hex);
+}
+
+@mixin link-light($color, $hover-color) {
+  color: $color;
+  transition: color .35s ease;
+  text-decoration: none;
+  &:hover {
+    color: $hover-color;
+  }
+}
+
+// Get background color smooth change
+@mixin bg-light($color) {
+  transition: background 0.35s ease;
+  &:hover {
+    background: $color;
+  }
+}
+
+// Hover animation for links
+%hover-animation {
+  background-image: linear-gradient(
+                  to right,
+                  #54b3d6,
+                  #54b3d6 50%,
+                  #fff 50%
+  );
+  background-size: 200% 100%;
+  background-position: 100.5%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-position: 0;
+    text-shadow: 1px 1px 30px rgba(84, 179, 214, .7);
+  }
+
+  &:hover::before {
+    a:hover::before {
+      width: 100%;
+    }
+  }
+}
+
+// hover animations for card titles
+%hover-animation__title {
+  background-image: linear-gradient(
+                  to right,
+                  var(--c-grey00),
+                  var(--c-grey00) 50%,
+                  var(--c-primary) 50%
+  );
+  background-size: 200% 100%;
+  background-position: -100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-position: 0;
+  }
+
+  &:hover::before {
+    a:hover::before {
+      width: 100%;
+    }
+  }
+}
+
+// box-shadows for elements
+
+%box-shadow {
+  box-shadow: 0px 0px 15px 3px rgba(255, 255, 255, 0.15);
+}
