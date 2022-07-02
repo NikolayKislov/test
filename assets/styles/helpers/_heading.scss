@@ -1,0 +1,32 @@
+@use '../helpers/helpers';
+@use '../helpers/media';
+
+.h2  {
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  color: var(--c-grey100);
+  max-width: 320px;
+  margin: 30px auto;
+
+  @include media.md-up {
+    font-size: 32px;
+    max-width: 500px;
+  }
+
+  &::before,
+  &::after {
+    display: inline-block;
+    content: "";
+    border-top: .2rem solid var(--c-secondary-dark);
+    width: 40px;
+    margin: 0 16px;
+    transform: translateY(-6px);
+
+    @include media.md-up {
+      transform: translateY(-12px);
+    }
+  }
+}

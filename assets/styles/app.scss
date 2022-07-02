@@ -1,0 +1,33 @@
+@use '@/assets/styles/helpers/vars';
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --c-primary: #{vars.$primary};
+  --c-primary-dark: #{vars.$primary-dark};
+  --c-secondary: #{vars.$secondary};
+  --c-secondary-dark: #{vars.$secondary-dark};
+  --c-grey00: #{vars.$grey00};
+  --c-grey10: #{vars.$grey10};
+  --c-grey20: #{vars.$grey20};
+  --c-grey30: #{vars.$grey30};
+  --c-grey40: #{vars.$grey40};
+  --c-black: #{vars.$black};
+
+  --f-heading: #{vars.$cairo};
+  --f-base: #{vars.$cairo};
+
+  --z-bottom: #{vars.$z-bottom};
+  --z-middle-bottom: #{vars.$z-middle-bottom};
+  --z-middle: #{vars.$z-middle};
+  --z-middle-top: #{vars.$z-middle-top};
+  --z-top-10: #{vars.$z-top-10};
+  --z-top-20: #{vars.$z-top-20};
+  --z-top-30: #{vars.$z-top-30};
+
+  --b-radius: #{vars.$border-radius};
+  --b-radius-md: #{vars.$border-radius-md};
+}
