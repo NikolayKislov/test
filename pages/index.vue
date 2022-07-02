@@ -1,10 +1,8 @@
 <template>
   <div class="app">
     <div class="container">
-    <TheHeader/>
-    <main>
-      <TheForm/>
-    </main>
+      <TheHeader/>
+      <TheMain/>
     </div>
   </div>
 </template>

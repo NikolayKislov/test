@@ -1,7 +1,7 @@
 <template>
   <div class="product-item">
     <img class="product-item__image" :src="`${image}`" :alt="`${title}`">
-    <h2 class="H2">{{ title }}</h2>
+    <h2 class="H2 product__title">{{ title }}</h2>
     <p class="product-item__description">{{ description }}</p>
     <p class="product-item__price H2">{{ price }}</p>
   </div>
@@ -45,24 +45,30 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   background: var(--c-grey10);
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
   border-radius: var(--b-radius);
   font-family: var(--f-base);
   color: var(--c-grey40);
+
+}
+
+.product__title{
+  align-self: start;
+  margin: 12px 0 17px 20px;
 }
 
 .product-item__image {
   max-width: inherit;
   width: 100%;
-  min-height: 180px;
+  height: 200px;
   border-top-left-radius: var(--b-radius);
   border-top-right-radius: var(--b-radius);
 }
 
 .product-item__description {
-  margin: 0;
+  margin: 0 0 0 15px;
   padding: 0;
   max-width: 300px;
   width: 100%;
@@ -74,6 +80,7 @@ export default {
 
 .product-item__price {
   align-self: flex-start;
+  justify-self: flex-end;
   padding-left: 20px;
 }
 </style>
