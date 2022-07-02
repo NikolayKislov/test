@@ -1,8 +1,10 @@
 @use '@/assets/styles/helpers/vars';
-* {
+body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: var(--f-base);
+  background-color: rgba(255, 254, 251, 0.8);
 }
 
 :root {
@@ -15,10 +17,11 @@
   --c-grey20: #{vars.$grey20};
   --c-grey30: #{vars.$grey30};
   --c-grey40: #{vars.$grey40};
+  --c-grey50: #{vars.$grey50};
   --c-black: #{vars.$black};
 
-  --f-heading: #{vars.$cairo};
-  --f-base: #{vars.$cairo};
+  --f-heading: #{vars.$source-sans-pro};
+  --f-base: #{vars.$source-sans-pro};
 
   --z-bottom: #{vars.$z-bottom};
   --z-middle-bottom: #{vars.$z-middle-bottom};
