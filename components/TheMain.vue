@@ -1,17 +1,20 @@
 <template>
   <main class="main">
     <TheForm @onAddItem="handleAddItem"/>
-    <ProductList :list-items="listItems"/>
+    <ProductList
+      @sendID="deleteItemFromList"
+      :list-items="listItems"/>
   </main>
 </template>
 
 <script>
 import TheForm from "~/components/TheForm";
-
+import ProductList from "@/components/ProductList";
 export default {
   name: 'TheMain',
   components: {
-    TheForm
+    TheForm,
+    ProductList
   },
   data() {
     return {
@@ -21,6 +24,9 @@ export default {
   methods: {
     handleAddItem(item) {
       this.listItems.push({...item})
+    },
+    deleteItemFromList(value) {
+      this.listItems = this.listItems.filter(el => el.id !== value)
     }
   }
 }
