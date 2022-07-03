@@ -7,13 +7,15 @@
           id="name"
           v-model="listItem.title"
           class="item__input"
+          :class="`${listItem.title? 'item__input--allow' : 'item__input--reject'}`"
           maxlength="20"
           type="text"
           name="name"
           placeholder="Введите наименование товара"><br>
+        <p v-if="listItem.title === ''" class="warning">Поле является обязательным</p>
       </div>
       <div class="form__item">
-        <label for="textarea" class="item__label">Описание товара</label>
+        <label for="textarea" class="text__label">Описание товара</label>
         <textarea
           id="textarea"
           v-model="listItem.description"
@@ -28,8 +30,11 @@
           id="link"
           v-model="listItem.image"
           class="item__input"
+          :class="`${listItem.image.match(exp)? 'item__input--allow' : 'item__input--reject'}`"
           type="text" name="link"
           placeholder="Введите ссылку">
+        <p v-if="listItem.image === ''" class="warning">Поле является обязательным</p>
+        <p v-else-if="!listItem.image.match(exp)" class="warning">Невалидная ссылка</p>
       </div>
       <div class="form__item">
         <label for="price" class="item__label">Цена товара</label><br>
@@ -37,10 +42,12 @@
           id="price"
           v-model="fValue"
           class="item__input"
+          :class="`${listItem.price? 'item__input--allow' : 'item__input--reject'}`"
           type="text"
           maxlength="7"
           name="price"
           placeholder="Введите цену">
+        <p v-if="listItem.price === ''" class="warning">Поле является обязательным</p>
       </div>
       <button
         class="btn"
@@ -65,12 +72,12 @@ export default {
         description: '',
         price: ''
       },
-      isDisabled: true
+      exp: /(http[s]*:\/\/)([a-z\-\d/.]+)\.([a-z.]{2,3})\/([a-z\d\-_/.~:?#[\]@!$&'()*+,;=%]*)([a-z\d]+\.)(jpg|jpeg|png)/i
     }
   },
   computed: {
     checkEmptyFields() {
-      const exp = /^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/gmi
+      const exp = /(http[s]*:\/\/)([a-z\-\d/.]+)\.([a-z.]{2,3})\/([a-z\d\-_/.~:?#[\]@!$&'()*+,;=%]*)([a-z\d]+\.)(jpg|jpeg|png)/i
       return this.listItem.image !== '' && this.listItem.title !== '' && this.listItem.price !== '' && this.listItem.image.match(exp)
     },
     fValue: {
@@ -94,7 +101,7 @@ export default {
   },
   methods: {
     addItem() {
-      const exp = /^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/gmi
+      const exp = /(http[s]*:\/\/)([a-z\-\d/.]+)\.([a-z.]{2,3})\/([a-z\d\-_/.~:?#[\]@!$&'()*+,;=%]*)([a-z\d]+\.)(jpg|jpeg|png)/i
       if (this.listItem.image !== '' && this.listItem.title !== '' && this.listItem.price !== '' && this.listItem.image.match(exp)) {
         this.listItem.id = new Date().toLocaleTimeString().replaceAll(':', '')
         this.$emit('onAddItem', this.listItem)
@@ -117,7 +124,6 @@ export default {
 
 .form-section {
   width: 332px;
-  height: 436px;
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
   border-radius: var(--b-radius);
 }
@@ -148,21 +154,40 @@ export default {
   font-family: var(--f-base);
   margin-top: 4px;
 
-  &:focus,
-  &:hover {
+  &--allow {
     outline: 1px solid var(--c-primary);
+  }
+
+  &--reject {
+    outline: 1px solid var(--c-secondary);
+    &:focus,
+    &:hover {
+      outline: 1px solid var(--c-secondary);
+    }
   }
 }
 
-.item__label {
+.item__label,
+.text__label{
   font-weight: 400;
   font-size: 10px;
   line-height: 13px;
   letter-spacing: -0.02em;
   font-family: var(--f-base);
   color: var(--c-grey50);
+  position: relative;
 }
 
+.item__label::after {
+  content: '';
+  width: 4px;
+  height: 4px;
+  position: absolute;
+  border-radius: var(--b-radius-md);
+  background-color: var(--c-secondary);
+  top: 0;
+  right: -6px;
+}
 .item__textarea {
   display: block;
   resize: none;
@@ -214,5 +239,12 @@ export default {
       cursor: default;
     }
   }
+}
+
+.warning {
+  font-size: 10px;
+  margin: 4px 0 0 0;
+  padding: 0;
+  color: var(--c-secondary);
 }
 </style>
