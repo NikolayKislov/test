@@ -47,6 +47,7 @@ export default {
   methods: {
     optionSelect(option) {
       this.selected = option.name
+      this.$emit('sortingOrder', option.value)
     }
   }
 }
