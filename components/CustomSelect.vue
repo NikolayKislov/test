@@ -110,5 +110,6 @@ p {
   font-size: 12px;
   line-height: 15px;
   text-align: center;
+  z-index: 30;
 }
 </style>

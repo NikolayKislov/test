@@ -1,7 +1,6 @@
 <template>
   <section class="product-list">
     <ProductListItem
-      @sendId="sendId"
       v-for="item in listItems"
       :id="item.id"
       :key="item.id"
@@ -9,6 +8,7 @@
       :title="item.title"
       :description="item.description"
       :price="item.price"
+      @sendId="sendId"
     />
   </section>
 </template>
@@ -49,9 +49,9 @@ export default {
   max-width: 1028px;
   margin-top: 5px;
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   flex-direction: row;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 20px 0;
