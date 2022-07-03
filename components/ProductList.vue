@@ -1,7 +1,9 @@
 <template>
   <section class="product-list">
     <ProductListItem
+      @sendId="sendId"
       v-for="item in listItems"
+      :id="item.id"
       :key="item.id"
       :image="item.image"
       :title="item.title"
@@ -12,15 +14,30 @@
 </template>
 
 <script>
+import ProductListItem from "@/components/ProductListItem";
+
 export default {
-name: 'ProductList',
+  name: 'ProductList',
+  components: {
+    ProductListItem
+  },
   props: {
-  listItems: {
-    type: Array,
-    default() {
-      return [];
+    listItems: {
+      type: Array,
+      default() {
+        return [];
+      }
     }
   },
+  data() {
+   return {
+     itemId: ''
+   }
+  },
+  methods: {
+    sendId(value) {
+      this.$emit('sendID', value)
+    }
   }
 }
 </script>

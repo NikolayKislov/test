@@ -12,7 +12,7 @@
           type="text"
           name="name"
           placeholder="Введите наименование товара"><br>
-        <p v-if="listItem.title === ''" class="warning">Поле является обязательным</p>
+        <p v-show="listItem.title === ''" class="warning">Поле является обязательным</p>
       </div>
       <div class="form__item">
         <label for="textarea" class="text__label">Описание товара</label>
@@ -33,8 +33,8 @@
           :class="`${listItem.image.match(exp)? 'item__input--allow' : 'item__input--reject'}`"
           type="text" name="link"
           placeholder="Введите ссылку">
-        <p v-if="listItem.image === ''" class="warning">Поле является обязательным</p>
-        <p v-else-if="!listItem.image.match(exp)" class="warning">Невалидная ссылка</p>
+        <p v-show="listItem.image === ''" class="warning">Поле является обязательным</p>
+        <p v-show="!listItem.image.match(exp) && listItem.image !== ''" class="warning">Невалидная ссылка</p>
       </div>
       <div class="form__item">
         <label for="price" class="item__label">Цена товара</label><br>
@@ -47,7 +47,7 @@
           maxlength="7"
           name="price"
           placeholder="Введите цену">
-        <p v-if="listItem.price === ''" class="warning">Поле является обязательным</p>
+        <p v-show="listItem.price === ''" class="warning">Поле является обязательным</p>
       </div>
       <button
         class="btn"
@@ -103,7 +103,7 @@ export default {
     addItem() {
       const exp = /(http[s]*:\/\/)([a-z\-\d/.]+)\.([a-z.]{2,3})\/([a-z\d\-_/.~:?#[\]@!$&'()*+,;=%]*)([a-z\d]+\.)(jpg|jpeg|png)/i
       if (this.listItem.image !== '' && this.listItem.title !== '' && this.listItem.price !== '' && this.listItem.image.match(exp)) {
-        this.listItem.id = new Date().toLocaleTimeString().replaceAll(':', '')
+        this.listItem.id = String(+new Date())
         this.$emit('onAddItem', this.listItem)
         this.listItem.title = ''
         this.listItem.description = ''
@@ -153,6 +153,7 @@ export default {
   line-height: 15px;
   font-family: var(--f-base);
   margin-top: 4px;
+  transition: all ease-in-out .3s;
 
   &--allow {
     outline: 1px solid var(--c-primary);
@@ -223,6 +224,7 @@ export default {
   letter-spacing: -0.02em;
   color: var(--c-grey30);
   border: none;
+  transition: all ease-in-out .5s;
 
   &--allow {
     cursor: pointer;
@@ -246,5 +248,6 @@ export default {
   margin: 4px 0 0 0;
   padding: 0;
   color: var(--c-secondary);
+  transition: all ease-in-out .3s;
 }
 </style>
