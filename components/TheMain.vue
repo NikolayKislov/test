@@ -20,17 +20,23 @@ export default {
   },
   methods: {
     handleAddItem(item) {
-      this.listItems.push(item)
+      this.listItems.push({...item})
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@use '@/assets/styles/helpers/media';
 .main {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
+  max-width: 1400px ;
+  @include media.md-up {
+    flex-direction: row;
+    align-items: flex-start;
+  }
 }
 </style>

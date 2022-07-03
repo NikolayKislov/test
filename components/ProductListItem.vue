@@ -3,7 +3,7 @@
     <img class="product-item__image" :src="`${image}`" :alt="`${title}`">
     <h2 class="H2 product__title">{{ title }}</h2>
     <p class="product-item__description">{{ description }}</p>
-    <p class="product-item__price H2">{{ price }}</p>
+    <p class="product-item__price H2">{{ price + ' руб.'}}</p>
   </div>
 </template>
 
@@ -40,8 +40,7 @@ export default {
 
 .product-item {
   max-width: 332px;
-  width: 100%;
-  min-height: 420px;
+  height: 420px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,36 +50,36 @@ export default {
   border-radius: var(--b-radius);
   font-family: var(--f-base);
   color: var(--c-grey40);
-
 }
 
 .product__title{
   align-self: start;
-  margin: 12px 0 17px 20px;
+  margin: 17px 0 0 15px;
 }
 
 .product-item__image {
-  max-width: inherit;
-  width: 100%;
+  max-width: 332px;
+  aspect-ratio: 1.66 / 1;
   height: 200px;
   border-top-left-radius: var(--b-radius);
   border-top-right-radius: var(--b-radius);
 }
 
 .product-item__description {
-  margin: 0 0 0 15px;
   padding: 0;
   max-width: 300px;
   width: 100%;
+  height: 80px;
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
   overflow-wrap: break-word;
+  margin-bottom: 34px;
 }
 
 .product-item__price {
+  margin: 0 0 0 15px;
   align-self: flex-start;
-  justify-self: flex-end;
-  padding-left: 20px;
+  font-size: 24px;
 }
 </style>

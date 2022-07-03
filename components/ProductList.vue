@@ -2,7 +2,7 @@
   <section class="product-list">
     <ProductListItem
       v-for="item in listItems"
-      :key="item.title"
+      :key="item.id"
       :image="item.image"
       :title="item.title"
       :description="item.description"
@@ -30,19 +30,18 @@ name: 'ProductList',
 
 .product-list {
   max-width: 1028px;
+  margin-top: 5px;
   width: 100%;
-  height: 20vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 20px 0;
   @include media.lg-up {
 
   }
   @include media.xl-only {
   }
-
 }
 </style>

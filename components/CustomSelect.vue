@@ -61,7 +61,7 @@ export default {
 .custom-select {
   width: 121px;
   height: 36px;
-  margin-top: 10px;
+  margin-top: 17px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: var(--b-radius);
   background-color: var(--c-grey10);
@@ -77,7 +77,7 @@ export default {
 }
 
 p {
-  padding: 11px 13px 10px 10px;
+  padding: 12px 21px 10px 10px;
   cursor: pointer;
   border-radius: var(--b-radius);
 
@@ -92,8 +92,8 @@ p {
   border-right:1px solid var(--c-grey30);
   border-bottom: 1px solid var(--c-grey30);
   position: absolute;
-  right: 12px;
-  top: 15px;
+  right: 17px;
+  top: 16px;
 }
 .options {
   position: absolute;
