@@ -92,8 +92,8 @@ p {
   border-right:1px solid var(--c-grey30);
   border-bottom: 1px solid var(--c-grey30);
   position: absolute;
-  right: 17px;
-  top: 16px;
+  right: 16px;
+  top: 17px;
 }
 .options {
   position: absolute;

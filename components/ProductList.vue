@@ -30,9 +30,9 @@ export default {
     }
   },
   data() {
-   return {
-     itemId: ''
-   }
+    return {
+      itemId: ''
+    }
   },
   methods: {
     sendId(value) {
@@ -50,15 +50,18 @@ export default {
   margin-top: 5px;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px 0;
-  @include media.lg-up {
-
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-content: center;
+  place-items: center;
+  gap: 19px 16px;
+  @include media.lg-to-xl {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
   }
   @include media.xl-only {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1028px;
   }
 }
 </style>
