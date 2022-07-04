@@ -20,7 +20,7 @@
           id="textarea"
           v-model="listItem.description"
           class="item__textarea"
-          maxlength="120"
+          maxlength="118"
           name="textarea"
           placeholder="Введите описание товара"></textarea>
       </div>

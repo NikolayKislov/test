@@ -85,12 +85,17 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  cursor: pointer;
   background: var(--c-grey10);
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
   border-radius: var(--b-radius);
   font-family: var(--f-base);
   color: var(--c-grey40);
 
+  @include media.lg-down {
+    max-width: 300px;
+    height: 400px;
+  }
   &:hover {
     .item__delete-icon{
       display: block;
@@ -109,6 +114,11 @@ export default {
   height: 200px;
   border-top-left-radius: var(--b-radius);
   border-top-right-radius: var(--b-radius);
+
+  @include media.lg-down {
+    max-width: 300px;
+    height: 180px;
+  }
 }
 
 .product-item__description {
@@ -121,12 +131,20 @@ export default {
   line-height: 20px;
   overflow-wrap: break-word;
   margin-bottom: 34px;
+
+  @include media.lg-down {
+    max-width: 265px;
+  }
 }
 
 .product-item__price {
   margin: 0 0 0 15px;
   align-self: flex-start;
   font-size: 24px;
+
+  @include media.lg-down {
+    margin: 0 0 0 17px;
+  }
 }
 
 .item__delete-icon {
@@ -136,6 +154,8 @@ export default {
   top: -10px;
   right: -11px;
   transition: all ease-in-out .3s;
+
+
 
   &:hover {
     filter: brightness(95%);

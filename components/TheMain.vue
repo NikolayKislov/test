@@ -65,10 +65,17 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  gap: 18px;
   max-width: 1400px;
   @include media.md-up {
+    justify-content: center;
+    gap: 5px;
     flex-direction: row;
     align-items: flex-start;
+  }
+  @include media.xl-only {
+    justify-content: space-between;
+    gap: 18px;
   }
 }
 </style>
