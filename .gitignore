@@ -88,3 +88,13 @@ sw.*
 
 # Vim swap files
 *.swp
+#node-modules
+node_modules
+
+#linters
+.eslintrc.js
+.prettierrc
+.prettierignore
+
+
+

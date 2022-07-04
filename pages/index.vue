@@ -1,17 +1,33 @@
 <template>
   <div class="app">
     <div class="container">
-    <TheHeader/>
-    <main>
-      <TheForm/>
-    </main>
+      <TheHeader
+      @sortingOrder="getOrder"
+      />
+      <TheMain
+      :sort-order="sortOption"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import TheHeader from "~/components/TheHeader";
 export default {
   name: 'IndexPage',
+  components: {
+    TheHeader
+  },
+  data() {
+    return {
+      sortOption: '',
+    }
+  },
+  methods: {
+    getOrder(value) {
+      this.sortOption = value
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
