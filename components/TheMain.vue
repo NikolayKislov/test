@@ -2,7 +2,7 @@
   <main class="main">
     <TheForm @onAddItem="handleAddItem"/>
     <ProductList
-      :list-items="listItems"
+      :list-items="sortedList"
       @sendID="deleteItemFromList"
     />
   </main>
@@ -30,20 +30,19 @@ export default {
       sortIndex: 0
     }
   },
-  watch: {
-    '$props': {
-      handler(val) {
-        this.sortIndex = val
-        if (val.sortOrder === 1) {
-          return this.listItems.sort((a, b) => a.price.replaceAll(" ", '').replace(/'\d'/g, '') - b.price.replaceAll(" ", '').replace(/'\d'/g, ''));
-        }
-        if (val.sortOrder === 2) {
-          return this.listItems.sort((a, b) => b.price.replaceAll(" ", '').replace(/'\d'/g, '') - a.price.replaceAll(" ", '').replace(/'\d'/g, ''));
-        } else {
-          return this.listItems.sort((a, b) => a.title.replaceAll(" ", '').localeCompare(b.title.replaceAll(" ", '')));
-        }
-      },
-      deep: true
+  computed: {
+    sortedList() {
+      if (this.sortOrder === 1) {
+        return [...this.listItems].sort((a, b) => a.price.replaceAll(" ", '').replace(/'\d'/g, '') - b.price.replaceAll(" ", '').replace(/'\d'/g, ''));
+      }
+      if (this.sortOrder === 2) {
+        return [...this.listItems].sort((a, b) => b.price.replaceAll(" ", '').replace(/'\d'/g, '') - a.price.replaceAll(" ", '').replace(/'\d'/g, ''));
+      }
+      if (this.sortOrder === 3) {
+        return [...this.listItems].sort((a, b) => a.title.replaceAll(" ", '').localeCompare(b.title.replaceAll(" ", '')));
+      }
+
+      return this.listItems
     }
   },
   methods: {

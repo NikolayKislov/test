@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      sortOption: '',
+      sortOption: 0,
     }
   },
   methods: {
