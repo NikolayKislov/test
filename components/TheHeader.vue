@@ -29,6 +29,10 @@ export default {
     return {
       options: [
         {
+          name: 'По умолчанию',
+          value: 0
+        },
+        {
           name: 'По цене ↑',
           value: 1
         },
