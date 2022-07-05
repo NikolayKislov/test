@@ -3,16 +3,16 @@
     <form class="form">
       <div class="form__item">
         <label for="name" class="item__label">Наименование товара</label><br>
-        <input
+        <CustomInput
           id="name"
           v-model="listItem.title"
-          class="item__input"
           maxlength="20"
           type="text"
           name="name"
           placeholder="Введите наименование товара"
-          @click="triggerAlerts($event)"><br>
-        <p v-show="!listItem.title" class="warning">Поле является обязательным</p>
+          :error="isNameValid"
+        />
+        <br>
       </div>
       <div class="form__item">
         <label for="textarea" class="text__label">Описание товара</label>
@@ -26,33 +26,28 @@
       </div>
       <div class="form__item">
         <label for="link" class="item__label">Ссылка на изображение товара</label><br>
-        <input
+        <CustomInput
           id="link"
           v-model="listItem.image"
-          class="item__input"
-          :class="listItem.image.match(exp)? 'item__input--allow' : 'item__input--reject'"
           type="text" name="link"
           placeholder="Введите ссылку"
-          @click="triggerAlerts($event)">
-        <p v-show="!listItem.image" class="warning">Поле является обязательным</p>
-        <p v-show="!listItem.image.match(exp)" class="warning">Невалидная ссылка</p>
+          :error="isLinkValid"
+        />
       </div>
       <div class="form__item">
         <label for="price" class="item__label">Цена товара</label><br>
-        <input
+        <CustomInput
           id="price"
           v-model="fValue"
-          class="item__input"
           type="text"
-          maxlength="7"
           name="price"
           placeholder="Введите цену"
-          @click="triggerAlerts($event)">
-        <p v-show="!listItem.price" class="warning">Поле является обязательным</p>
+          :error="isPriceValid"
+        />
       </div>
       <button
         class="btn"
-        :class="{'btn--allow': checkEmptyFields, 'btn--disabled': !checkEmptyFields}"
+        :class="{'btn--allow': isFormValid, 'btn--disabled': !isFormValid}"
         type="submit"
         @click.prevent="addItem">Добавить
         товар
@@ -62,8 +57,13 @@
 </template>
 
 <script>
+import CustomInput from "~/components/CustomInput";
+
 export default {
   name: 'TheForm',
+  components: {
+    CustomInput,
+  },
   data() {
     return {
       listItem: {
@@ -78,10 +78,6 @@ export default {
     }
   },
   computed: {
-    checkEmptyFields() {
-      const exp = /(http[s]*:\/\/)([a-z\-\d/.]+)\.([a-z.]{2,3})\/([a-z\d\-_/.~:?#[\]@!$&'()*+,;=%]*)([a-z\d]+\.)(jpg|jpeg|png)/i
-      return this.listItem.image !== '' && this.listItem.title !== '' && this.listItem.price !== '' && this.listItem.image.match(exp)
-    },
     fValue: {
       // getter
       get() {
@@ -89,22 +85,25 @@ export default {
       },
       // setter
       set(n) {
-        if (n.length > 3) {
-          n = n.replace(" ", "");
-          this.listItem.price =
-            n.substr(0, n.length - 3) +
-            " " +
-            n.substr(n.length - 3);
-        } else {
-          this.listItem.price = n;
-        }
+        this.listItem.price = [...n.replaceAll(" ", "")].reverse().reduce((acc, v, i) => [...acc, ...((i - 2) % 3 === 0 && i > 0 ? [v, ' '] : [v])], []).reverse().join('').trim();
       }
+    },
+    isNameValid() {
+      return !this.listItem.title ? 'Поле является обязательным' : ''
+    },
+    isLinkValid() {
+      return !this.listItem.image ? 'Поле является обязательным' : !this.listItem.image.match(this.exp) ? 'Невалидная ссылка' : ''
+    },
+    isPriceValid() {
+      return !this.listItem.price ? 'Поле является обязательным' : isNaN(+this.listItem.price.replaceAll(' ', '')) ? 'Поле может содержать только цифры' : ''
+    },
+    isFormValid() {
+      return !(this.isNameValid || this.isLinkValid || this.isPriceValid)
     }
   },
   methods: {
     addItem() {
-      const exp = /(http[s]*:\/\/)([a-z\-\d/.]+)\.([a-z.]{2,3})\/([a-z\d\-_/.~:?#[\]@!$&'()*+,;=%]*)([a-z\d]+\.)(jpg|jpeg|png)/i
-      if (this.listItem.image !== '' && this.listItem.title !== '' && this.listItem.price !== '' && this.listItem.image.match(exp)) {
+      if (this.listItem.image !== '' && this.listItem.title !== '' && this.listItem.price !== '' && this.listItem.image.match(this.exp)) {
         this.listItem.id = String(+new Date())
         this.$emit('onAddItem', this.listItem)
         this.listItem.title = ''
@@ -112,9 +111,6 @@ export default {
         this.listItem.image = ''
         this.listItem.price = ''
       }
-    },
-    triggerAlerts(e) {
-      this.isValid = (this.listItem.image !== '' && this.listItem.title !== '' && this.listItem.price !== '' && this.listItem.image.match(this.exp));
     },
   }
 }
@@ -142,36 +138,6 @@ export default {
   font-family: var(--f-base);
   color: var(--c-grey30);
   gap: 11px;
-}
-
-.item__input {
-  box-sizing: border-box;
-  width: 284px;
-  height: 35px;
-  padding: 10px 16px 11px;
-  border-radius: var(--b-radius);
-  border: none;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: var(--c-grey10);
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
-  font-family: var(--f-base);
-  margin-top: 4px;
-  transition: all ease-in-out .3s;
-
-  &--allow {
-    outline: 1px solid var(--c-primary);
-  }
-
-  &--reject {
-    outline: 1px solid var(--c-secondary);
-
-    &:focus,
-    &:hover {
-      outline: 1px solid var(--c-secondary);
-    }
-  }
 }
 
 .item__label,
